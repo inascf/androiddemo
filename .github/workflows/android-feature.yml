@@ -36,3 +36,17 @@ jobs:
         with:
           name: app
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: 'Send mail'
+          uses: dawidd6/action-send-mail@master
+          with:
+            server_address: smtp.qiye.aliyun.com
+            server_port: 465
+            username: ${{ secrets.MAIL_USERNAME }}
+            password: ${{ secrets.MAIL_PASSWORD }}
+            subject: Github Android Demo Release
+            body: file://README.md
+            to: ${{ secrets.MAIL_TO }}
+            from: GitHub Actions
+            content_type: text/plain
+            attachments: app/build/outputs/apk/debug/app-debug.apk
